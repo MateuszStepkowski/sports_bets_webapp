@@ -24,9 +24,6 @@ public class Country {
     public Country() {
     }
 
-    public Country(@NotBlank String name) {
-        this.name = name;
-    }
 
 
     public int getId() {

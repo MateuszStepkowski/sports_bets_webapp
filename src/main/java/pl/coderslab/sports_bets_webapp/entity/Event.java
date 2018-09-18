@@ -4,6 +4,8 @@ package pl.coderslab.sports_bets_webapp.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "events")
@@ -28,6 +30,9 @@ public class Event {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Team teamB;
 
+    @OneToMany(mappedBy = "event")
+    private List<Bet> bets = new ArrayList<>();
+
 
     private int teamA_pts=0;
 
@@ -40,12 +45,6 @@ public class Event {
     public Event() {
     }
 
-    public Event(@NotNull LocalDateTime startDate, @NotNull League league, @NotNull Team teamA, @NotNull Team teamB) {
-        this.startDate = startDate;
-        this.league = league;
-        this.teamA = teamA;
-        this.teamB = teamB;
-    }
 
     public int getId() {
         return id;
@@ -87,20 +86,28 @@ public class Event {
         this.teamB = teamB;
     }
 
+    public List<Bet> getBets() {
+        return bets;
+    }
+
+    public void setBets(List<Bet> bets) {
+        this.bets = bets;
+    }
+
     public int getTeamA_pts() {
         return teamA_pts;
     }
 
-    public void setTeamA_pts(int teamApts) {
-        this.teamA_pts = teamApts;
+    public void setTeamA_pts(int teamA_pts) {
+        this.teamA_pts = teamA_pts;
     }
 
     public int getTeamB_pts() {
         return teamB_pts;
     }
 
-    public void setTeamB_pts(int teamBpts) {
-        this.teamB_pts = teamBpts;
+    public void setTeamB_pts(int teamB_pts) {
+        this.teamB_pts = teamB_pts;
     }
 
     public LocalDateTime getEndDate() {

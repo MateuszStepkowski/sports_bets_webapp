@@ -34,11 +34,6 @@ public class League {
     public League() {
     }
 
-    public League(@NotBlank String name, Country country, @NotNull Sport sport) {
-        this.name = name;
-        this.country = country;
-        this.sport = sport;
-    }
 
     public int getId() {
         return id;

@@ -11,6 +11,12 @@ public class EventDto {
     private LocalDateTime startDate;
 
     @NotBlank
+    private String sport;
+
+    @NotBlank
+    private String country;
+
+    @NotBlank
     private String league;
 
     @NotBlank
@@ -39,12 +45,28 @@ public class EventDto {
         this.startDate = startDate;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getLeague() {
         return league;
     }
 
     public void setLeague(String league) {
         this.league = league;
+    }
+
+    public String getSport() {
+        return sport;
+    }
+
+    public void setSport(String sport) {
+        this.sport = sport;
     }
 
     public String getTeamA() {
@@ -91,12 +113,14 @@ public class EventDto {
     public String toString() {
         return "EventDto{" +
                 "startDate=" + startDate +
+                ", sport='" + sport + '\'' +
+                ", country='" + country + '\'' +
                 ", league='" + league + '\'' +
                 ", teamA='" + teamA + '\'' +
                 ", teamB='" + teamB + '\'' +
                 ", teamA_pts=" + teamA_pts +
                 ", teamB_pts=" + teamB_pts +
-                ", endDate='" + endDate + '\'' +
+                ", endDate=" + endDate +
                 '}';
     }
 }

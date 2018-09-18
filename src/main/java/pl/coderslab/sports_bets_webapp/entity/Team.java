@@ -29,17 +29,10 @@ public class Team {
     @Size(min = 1, max = 100)
     private int deffensiveRating=50;
 
-    private int wins=0;
-    private int looses=0;
-    private int draws =0;
 
     public Team() {
     }
 
-    public Team(@NotBlank String name, Sport sport) {
-        this.name = name;
-        this.sport = sport;
-    }
 
     public int getId() {
         return id;
@@ -89,29 +82,7 @@ public class Team {
         this.deffensiveRating = deffensiveRating;
     }
 
-    public int getWins() {
-        return wins;
-    }
 
-    public void setWins(int wins) {
-        this.wins = wins;
-    }
-
-    public int getLooses() {
-        return looses;
-    }
-
-    public void setLooses(int looses) {
-        this.looses = looses;
-    }
-
-    public int getDraws() {
-        return draws;
-    }
-
-    public void setDraws(int draws) {
-        this.draws = draws;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -132,12 +103,11 @@ public class Team {
     @Override
     public String toString() {
         return "Team{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sport=" + sport +
                 ", offensiveRating=" + offensiveRating +
                 ", deffensiveRating=" + deffensiveRating +
-                ", wins=" + wins +
-                ", looses=" + looses +
-                ", draws=" + draws +
                 '}';
     }
 }
