@@ -19,4 +19,9 @@ public class TeamServiceImpl implements TeamService {
     public List<Team> findAllInLeague(League league) {
         return teamRepository.findAllByLeaguesContains(league);
     }
+
+    @Override
+    public Team findInLeagueByName(League league, String name) {
+        return teamRepository.findFirstByLeaguesContainsAndName(league, name);
+    }
 }

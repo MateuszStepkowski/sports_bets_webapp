@@ -1,36 +1,49 @@
 package pl.coderslab.sports_bets_webapp.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EventDto {
 
     @NotNull
+    @JsonProperty("startDate")
     private LocalDateTime startDate;
 
     @NotBlank
+    @JsonProperty("sport")
     private String sport;
 
     @NotBlank
+    @JsonProperty("country")
     private String country;
 
     @NotBlank
+    @JsonProperty("league")
     private String league;
 
     @NotBlank
+    @JsonProperty("teamA")
     private String teamA;
 
     @NotBlank
+    @JsonProperty("teamB")
     private String teamB;
 
-
+    @NotNull
+    @JsonProperty("teamA_pts")
     private int teamA_pts;
 
+    @NotNull
+    @JsonProperty("teamB_pts")
     private int teamB_pts;
 
-
+    @JsonProperty("endDate")
     private LocalDateTime endDate;
 
 

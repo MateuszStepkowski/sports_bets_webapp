@@ -19,4 +19,9 @@ public class LeagueServiceImpl implements LeagueService {
     public List<League> findAll() {
         return leagueRepository.findAll();
     }
+
+    @Override
+    public League findByName(String name) {
+        return leagueRepository.findFirstByName(name);
+    }
 }

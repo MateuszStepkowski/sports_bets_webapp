@@ -9,4 +9,6 @@ import java.util.List;
 public interface TeamService {
 
     List<Team> findAllInLeague(League league);
+
+    Team findInLeagueByName(League league, String name);
 }

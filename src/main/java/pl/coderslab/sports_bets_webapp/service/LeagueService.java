@@ -8,4 +8,6 @@ import java.util.List;
 public interface LeagueService {
 
     List<League> findAll();
+
+    League findByName(String name);
 }

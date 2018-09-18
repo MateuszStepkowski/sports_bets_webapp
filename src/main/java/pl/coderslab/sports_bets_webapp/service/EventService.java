@@ -3,7 +3,10 @@ package pl.coderslab.sports_bets_webapp.service;
 
 
 import pl.coderslab.sports_bets_webapp.entity.Event;
+import pl.coderslab.sports_bets_webapp.entity.League;
+import pl.coderslab.sports_bets_webapp.entity.Team;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventService {
@@ -12,6 +15,10 @@ public interface EventService {
 
     void saveAll(List<Event> events);
 
-    void save(Event event);
+    Event save(Event event);
+
+    Event findBy_StartDate_TeamA_TeamB_League(LocalDateTime startDate, Team teamA, Team teamB, League league);
+
+    Event findUnfinishedBy_StartDate_TeamA_TeamB_League(LocalDateTime startDate, Team teamA, Team teamB, League league);
 
 }

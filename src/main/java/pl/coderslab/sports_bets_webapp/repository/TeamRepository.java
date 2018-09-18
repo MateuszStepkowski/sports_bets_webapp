@@ -10,4 +10,6 @@ import java.util.List;
 public interface TeamRepository extends JpaRepository<Team, Integer> {
 
     List<Team> findAllByLeaguesContains(League league);
+
+    Team findFirstByLeaguesContainsAndName(League league, String name);
 }
