@@ -27,8 +27,6 @@ public class Coupon {
     @OneToMany(mappedBy = "coupon")
     private List<Coupon_Bet> coupon_bet = new ArrayList<>();
 
-    @NotNull
-    private Date result_Date;
 
     @NotNull
     private CouponStatusEnum couponStatus;
@@ -64,14 +62,6 @@ public class Coupon {
 
     public void setCoupon_bet(List<Coupon_Bet> coupon_bet) {
         this.coupon_bet = coupon_bet;
-    }
-
-    public Date getResult_Date() {
-        return result_Date;
-    }
-
-    public void setResult_Date(Date result_Date) {
-        this.result_Date = result_Date;
     }
 
     public CouponStatusEnum getCouponStatus() {

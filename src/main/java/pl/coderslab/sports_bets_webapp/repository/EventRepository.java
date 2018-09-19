@@ -18,4 +18,5 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     Event findFirstByStartDateAndTeamAAndTeamBAndLeagueAndEndDateIsNull(LocalDateTime startDate, Team teamA, Team teamB, League league);
 
+
 }

@@ -1,6 +1,8 @@
 package pl.coderslab.sports_bets_webapp.entity;
 
+import pl.coderslab.sports_bets_webapp.entity.enums.BetContentEnum;
 import pl.coderslab.sports_bets_webapp.entity.enums.BetStatusEnum;
+import pl.coderslab.sports_bets_webapp.entity.enums.BetTypeEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,6 +32,12 @@ public class Bet {
 
     @NotNull
     private BetStatusEnum betStatus;
+
+    @NotNull
+    private BetTypeEnum betType;
+
+    @NotNull
+    private BetContentEnum betContent;
 
     public int getId() {
         return id;
@@ -73,26 +81,45 @@ public class Bet {
         this.betStatus = betStatus;
     }
 
+    public BetTypeEnum getBetType() {
+        return betType;
+    }
+
+    public void setBetType(BetTypeEnum betType) {
+        this.betType = betType;
+    }
+
+    public BetContentEnum getBetContent() {
+        return betContent;
+    }
+
+    public void setBetContent(BetContentEnum betContent) {
+        this.betContent = betContent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bet bet = (Bet) o;
-        return getId() == bet.getId();
+        return getId() == bet.getId() &&
+                getBetType() == bet.getBetType();
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getId());
+        return Objects.hash(getId(), getBetType());
     }
 
     @Override
     public String toString() {
         return "Bet{" +
                 "id=" + id +
+                ", event=" + event +
                 ", actual_odds=" + actual_odds +
                 ", betStatus=" + betStatus +
+                ", betType=" + betType +
                 '}';
     }
 }

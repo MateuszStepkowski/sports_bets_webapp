@@ -4,7 +4,6 @@ public enum CouponStatusEnum {
 
     WAITING,
     LOST,
-    TO_PAY,
     PAID;
 
 }

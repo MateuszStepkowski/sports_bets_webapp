@@ -8,6 +8,10 @@ public interface BetsForEventService {
 
     void generate_inPlay(Event event);
 
-    void updateBetsForEvent(Event event);
+    void updateInPlayBetsOddsForEvent(Event event);
+
+    void makeBeforeGameBetsWaiting(Event event);
+
+    void makeInPlayBetsWaiting(Event event);
 
 }

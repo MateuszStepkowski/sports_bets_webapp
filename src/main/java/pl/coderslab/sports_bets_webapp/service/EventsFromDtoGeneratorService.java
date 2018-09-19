@@ -7,6 +7,6 @@ public interface EventsFromDtoGeneratorService {
 
     Event createAndSaveNewEvent(EventDto eventDto);
 
-    Event updateEvent(EventDto eventDto);
+    Event generateEventToUpdate(EventDto eventDto);
 
 }

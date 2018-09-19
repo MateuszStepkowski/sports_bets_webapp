@@ -24,7 +24,7 @@ public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGenerator
     TeamService teamService;
 
     @Override
-    public Event updateEvent(EventDto eventDto) {
+    public Event generateEventToUpdate(EventDto eventDto) {
 
         Event event = new Event();
         event.setStartDate(LocalDateTime.from(eventDto.getStartDate()));
@@ -43,7 +43,7 @@ public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGenerator
         if (eventFromDb != null) {
 
             event.setId(eventFromDb.getId());
-            return eventService.save(event);
+            return event;
         }
 
 
@@ -70,4 +70,5 @@ public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGenerator
         }
         return null;
     }
+
 }

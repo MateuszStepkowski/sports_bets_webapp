@@ -8,6 +8,7 @@ import pl.coderslab.sports_bets_webapp.dto.EventDto;
 import pl.coderslab.sports_bets_webapp.entity.Event;
 import pl.coderslab.sports_bets_webapp.jms.JmsSubscriber;
 import pl.coderslab.sports_bets_webapp.service.BetsForEventService;
+import pl.coderslab.sports_bets_webapp.service.EventService;
 import pl.coderslab.sports_bets_webapp.service.EventsExternalDataService;
 
 import java.io.IOException;
@@ -29,6 +30,9 @@ public class EventsExternalDataServiceImpl implements EventsExternalDataService 
 
     @Autowired
     BetsForEventService betsForEventService;
+
+    @Autowired
+    EventService eventService;
 
     private final String newEventsQueue = "new_events.t";
     private final String eventsUpdateQueue = "events_update.t";
@@ -59,10 +63,11 @@ public class EventsExternalDataServiceImpl implements EventsExternalDataService 
             ObjectMapper mapper = new ObjectMapper();
             try {
                 EventDto newEventDto = mapper.readValue(jmsSubscriber.receive(eventsUpdateQueue), EventDto.class);
-                Event event = eventsFromDtoGenerator.updateEvent(newEventDto);
-                if (event != null) {
-                    betsForEventService.updateBetsForEvent(event);
+                Event event = eventsFromDtoGenerator.generateEventToUpdate(newEventDto);
+                if (event.getEndDate() != null){
+                    betsForEventService.makeInPlayBetsWaiting(event);
                 }
+                eventService.save(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }
