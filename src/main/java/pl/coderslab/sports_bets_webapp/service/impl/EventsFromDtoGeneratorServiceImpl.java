@@ -9,7 +9,8 @@ import pl.coderslab.sports_bets_webapp.service.EventsFromDtoGeneratorService;
 import pl.coderslab.sports_bets_webapp.service.LeagueService;
 import pl.coderslab.sports_bets_webapp.service.TeamService;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+
 
 @Service
 public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGeneratorService {
@@ -27,14 +28,14 @@ public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGenerator
     public Event generateEventToUpdate(EventDto eventDto) {
 
         Event event = new Event();
-        event.setStartDate(LocalDateTime.from(eventDto.getStartDate()));
+        event.setStartDate(eventDto.getStartDate());
         event.setLeague(leagueService.findByName(eventDto.getLeague()));
         event.setTeamA(teamService.findInLeagueByName(event.getLeague(), eventDto.getTeamA()));
         event.setTeamB(teamService.findInLeagueByName(event.getLeague(), eventDto.getTeamB()));
         event.setTeamA_pts(eventDto.getTeamA_pts());
         event.setTeamB_pts(eventDto.getTeamB_pts());
         event.setLive_duration_time(eventDto.getLive_duration_time());
-        event.setEndDate(LocalDateTime.from(eventDto.getEndDate()));
+        event.setEndDate(eventDto.getEndDate());
 
         Event eventFromDb = eventService.findBy_StartDate_TeamA_TeamB_League(event.getStartDate(),
                 event.getTeamA(), event.getTeamB(), event.getLeague());
@@ -55,7 +56,7 @@ public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGenerator
     public Event createAndSaveNewEvent(EventDto eventDto) {
 
         Event event = new Event();
-        event.setStartDate(LocalDateTime.from(eventDto.getStartDate()));
+        event.setStartDate(eventDto.getStartDate());
         event.setLeague(leagueService.findByName(eventDto.getLeague()));
         event.setTeamA(teamService.findInLeagueByName(event.getLeague(), eventDto.getTeamA()));
         event.setTeamB(teamService.findInLeagueByName(event.getLeague(), eventDto.getTeamB()));

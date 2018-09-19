@@ -5,6 +5,8 @@ import pl.coderslab.sports_bets_webapp.entity.enums.TransactionTypeEnum;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity(name = "transactions")
@@ -25,6 +27,9 @@ public class Transaction {
     @NotNull
     private BigDecimal amount;
 
+    @NotNull
+    private Timestamp time;
+
 
     public int getId() {
         return id;
@@ -36,6 +41,14 @@ public class Transaction {
 
     public Wallet getWallet() {
         return wallet;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
     public void setWallet(Wallet wallet) {
@@ -66,22 +79,23 @@ public class Transaction {
         return getId() == that.getId() &&
                 Objects.equals(getWallet(), that.getWallet()) &&
                 getTransactionType() == that.getTransactionType() &&
-                Objects.equals(getAmount(), that.getAmount());
+                Objects.equals(getAmount(), that.getAmount()) &&
+                Objects.equals(getTime(), that.getTime());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getId(), getWallet(), getTransactionType(), getAmount());
+        return Objects.hash(getId(), getWallet(), getTransactionType(), getAmount(), getTime());
     }
 
     @Override
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", wallet=" + wallet +
                 ", transactionType=" + transactionType +
                 ", amount=" + amount +
+                ", time=" + time +
                 '}';
     }
 }

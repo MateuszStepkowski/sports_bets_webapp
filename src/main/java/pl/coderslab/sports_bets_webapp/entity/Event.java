@@ -3,7 +3,7 @@ package pl.coderslab.sports_bets_webapp.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +16,7 @@ public class Event {
     private int id;
 
     @NotNull
-    private LocalDateTime startDate;
+    private Timestamp startDate;
 
     @NotNull
     @ManyToOne
@@ -39,7 +39,7 @@ public class Event {
     private int teamB_pts=0;
 
 
-    private LocalDateTime endDate;
+    private Timestamp endDate;
 
     private int live_duration_time = 0;
 
@@ -64,11 +64,11 @@ public class Event {
         this.live_duration_time = live_duration_time;
     }
 
-    public LocalDateTime getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
@@ -120,11 +120,11 @@ public class Event {
         this.teamB_pts = teamB_pts;
     }
 
-    public LocalDateTime getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 

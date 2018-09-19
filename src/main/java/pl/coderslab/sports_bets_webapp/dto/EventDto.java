@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EventDto {
 
     @NotNull
     @JsonProperty("startDate")
-    private LocalDateTime startDate;
+    private Timestamp startDate;
 
     @NotBlank
     @JsonProperty("sport")
@@ -46,13 +46,13 @@ public class EventDto {
     private int live_duration_time = 0;
 
     @JsonProperty("endDate")
-    private LocalDateTime endDate;
+    private Timestamp endDate;
 
 
     public EventDto() {
     }
 
-    public LocalDateTime getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
@@ -64,7 +64,7 @@ public class EventDto {
         this.live_duration_time = live_duration_time;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
@@ -124,11 +124,11 @@ public class EventDto {
         this.teamB_pts = teamB_pts;
     }
 
-    public LocalDateTime getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 

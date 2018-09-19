@@ -9,7 +9,7 @@ import pl.coderslab.sports_bets_webapp.repository.EventRepository;
 import pl.coderslab.sports_bets_webapp.service.EventService;
 
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -20,7 +20,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> findAllInPlay() {
-        return eventRepository.findAllByStartDateBeforeAndEndDateIsNull(LocalDateTime.now());
+        return eventRepository.findAllByStartDateBeforeAndEndDateIsNull(new Timestamp(System.currentTimeMillis()));
     }
 
     @Override
@@ -36,12 +36,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event findBy_StartDate_TeamA_TeamB_League(LocalDateTime startDate, Team teamA, Team teamB, League league) {
+    public Event findBy_StartDate_TeamA_TeamB_League(Timestamp startDate, Team teamA, Team teamB, League league) {
         return eventRepository.findFirstByStartDateAndTeamAAndTeamBAnAndLeague(startDate,teamA,teamB, league);
     }
 
     @Override
-    public Event findUnfinishedBy_StartDate_TeamA_TeamB_League(LocalDateTime startDate, Team teamA, Team teamB, League league) {
+    public Event findUnfinishedBy_StartDate_TeamA_TeamB_League(Timestamp startDate, Team teamA, Team teamB, League league) {
         return eventRepository.findFirstByStartDateAndTeamAAndTeamBAndLeagueAndEndDateIsNull(startDate, teamA, teamB, league);
     }
 

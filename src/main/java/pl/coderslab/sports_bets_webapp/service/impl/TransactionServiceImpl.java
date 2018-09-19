@@ -11,6 +11,7 @@ import pl.coderslab.sports_bets_webapp.service.TransactionService;
 import pl.coderslab.sports_bets_webapp.service.WalletService;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -31,8 +32,10 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setAmount(payout);
         transaction.setWallet(wallet);
         transaction.setTransactionType(TransactionTypeEnum.COUPON_PAYOUT);
+        transaction.setTime(new Timestamp(System.currentTimeMillis()));
 
         wallet.setBalance(wallet.getBalance().add(payout));
+        save(transaction);
         walletService.save(wallet);
 
     }
@@ -46,8 +49,10 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setAmount(deposit);
         transaction.setWallet(wallet);
         transaction.setTransactionType(TransactionTypeEnum.DEPOSIT);
+        transaction.setTime(new Timestamp(System.currentTimeMillis()));
 
         wallet.setBalance(wallet.getBalance().add(deposit));
+        save(transaction);
         walletService.save(wallet);
 
     }
@@ -61,8 +66,10 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setAmount(withdraw);
         transaction.setWallet(wallet);
         transaction.setTransactionType(TransactionTypeEnum.WITHDRAW);
+        transaction.setTime(new Timestamp(System.currentTimeMillis()));
 
         wallet.setBalance(wallet.getBalance().subtract(withdraw));
+        save(transaction);
         walletService.save(wallet);
 
     }
@@ -76,8 +83,10 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setAmount(charge);
         transaction.setWallet(wallet);
         transaction.setTransactionType(TransactionTypeEnum.COUPON_CHARGE);
+        transaction.setTime(new Timestamp(System.currentTimeMillis()));
 
         wallet.setBalance(wallet.getBalance().subtract(charge));
+        save(transaction);
         walletService.save(wallet);
 
     }

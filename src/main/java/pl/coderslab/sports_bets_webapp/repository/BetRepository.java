@@ -10,7 +10,7 @@ import pl.coderslab.sports_bets_webapp.entity.enums.BetStatusEnum;
 import pl.coderslab.sports_bets_webapp.entity.enums.BetTypeEnum;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -20,7 +20,7 @@ public interface BetRepository extends JpaRepository<Bet, Integer> {
 
     List<Bet> findAllByEventAndBetType(Event event, BetTypeEnum betType);
 
-    List<Bet> findAllByBetStatusAndEventEndDate(BetStatusEnum betStatus, LocalDateTime endDate);
+    List<Bet> findAllByBetStatusAndEventEndDate(BetStatusEnum betStatus, Timestamp endDate);
 
     @Query("SELECT b FROM Bet b JOIN Coupon_Bet c_b WHERE c_b.coupon_id =?1")
     List<Bet> findAllBycouponID(int id);

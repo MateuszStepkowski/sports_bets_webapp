@@ -2,10 +2,12 @@ package pl.coderslab.sports_bets_webapp.service;
 
 import pl.coderslab.sports_bets_webapp.entity.Event;
 
+import java.math.BigDecimal;
+
 public interface OddsGeneratorService {
 
 
-    void updateOddsForEvent(Event event);
+    BigDecimal[] updateOddsForEvent(Event event);
 
-    void generateOddsForEventBeforeGame(Event event);
+    BigDecimal[] generateOddsForEvent(Event event);
 }

@@ -36,7 +36,7 @@ public class LiveEventsServiceImpl implements LiveEventsService {
 
             if (betService.findFirstInPlayByEvent(event) == null){
                 betsForEventService.makeBeforeGameBetsWaiting(event);
-                betsForEventService.generate_inPlay(event);
+                betsForEventService.generate_inPlay_Win_Lose_Draw(event);
             }
             else {
                 betsForEventService.updateInPlayBetsOddsForEvent(event);

@@ -2,6 +2,7 @@ package pl.coderslab.sports_bets_webapp.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,11 +17,17 @@ public class Sport {
     @NotBlank
     private String name;
 
+    @NotNull
+    private int game_duration;
+
     @OneToMany(mappedBy = "sport")
     List<Team> teams = new ArrayList<>();
 
     @OneToMany(mappedBy = "sport")
     List<League> leagues = new ArrayList<>();
+
+    @NotNull
+    private int points_value;
 
 
 
@@ -42,6 +49,22 @@ public class Sport {
 
     public List<Team> getTeams() {
         return teams;
+    }
+
+    public int getGame_duration() {
+        return game_duration;
+    }
+
+    public void setGame_duration(int game_duration) {
+        this.game_duration = game_duration;
+    }
+
+    public int getPoints_value() {
+        return points_value;
+    }
+
+    public void setPoints_value(int points_value) {
+        this.points_value = points_value;
     }
 
     public void setTeams(List<Team> teams) {
