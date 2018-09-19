@@ -3,6 +3,7 @@ package pl.coderslab.sports_bets_webapp.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import pl.coderslab.sports_bets_webapp.entity.Bet;
 import pl.coderslab.sports_bets_webapp.entity.Event;
 import pl.coderslab.sports_bets_webapp.entity.enums.BetStatusEnum;
@@ -12,6 +13,7 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface BetRepository extends JpaRepository<Bet, Integer> {
 
     Bet findFirstByEventAndBetType(Event event, BetTypeEnum betType);

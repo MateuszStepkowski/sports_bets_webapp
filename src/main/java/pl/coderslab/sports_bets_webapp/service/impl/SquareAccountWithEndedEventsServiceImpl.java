@@ -4,11 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import pl.coderslab.sports_bets_webapp.entity.Bet;
 import pl.coderslab.sports_bets_webapp.entity.Coupon;
-import pl.coderslab.sports_bets_webapp.entity.Coupon_Bet;
-import pl.coderslab.sports_bets_webapp.service.BetService;
-import pl.coderslab.sports_bets_webapp.service.CouponService;
-import pl.coderslab.sports_bets_webapp.service.EventService;
-import pl.coderslab.sports_bets_webapp.service.SquareAccountWithEndedEventsService;
+import pl.coderslab.sports_bets_webapp.service.*;
 
 import java.util.List;
 
@@ -22,6 +18,9 @@ public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWit
 
     @Autowired
     CouponService couponService;
+
+    @Autowired
+    CouponSettleService couponSettleService;
 
     @Override
     @Scheduled
@@ -40,10 +39,7 @@ public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWit
         List<Coupon> waitingCoupons = couponService.findAllWaiting();
 
         for (Coupon coupon : waitingCoupons){
-
-
-
-
-
+            couponSettleService.updateStatusAndSettle(coupon);
+        }
     }
 }

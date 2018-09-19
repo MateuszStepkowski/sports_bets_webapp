@@ -19,4 +19,9 @@ public class CouponServiceImpl implements CouponService {
     public List<Coupon> findAllWaiting() {
         return couponRepository.findAllByCouponStatus(CouponStatusEnum.WAITING);
     }
+
+    @Override
+    public Coupon save(Coupon coupon) {
+        return couponRepository.saveAndFlush(coupon);
+    }
 }

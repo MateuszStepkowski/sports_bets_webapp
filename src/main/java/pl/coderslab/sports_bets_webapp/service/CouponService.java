@@ -11,5 +11,6 @@ public interface CouponService {
     List<Coupon> findAllWaiting();
 
 
+    Coupon save(Coupon coupon);
 
 }

@@ -8,7 +8,9 @@ import pl.coderslab.sports_bets_webapp.entity.Coupon_Bet;
 import pl.coderslab.sports_bets_webapp.entity.enums.BetStatusEnum;
 import pl.coderslab.sports_bets_webapp.entity.enums.CouponStatusEnum;
 import pl.coderslab.sports_bets_webapp.service.BetService;
+import pl.coderslab.sports_bets_webapp.service.CouponService;
 import pl.coderslab.sports_bets_webapp.service.CouponSettleService;
+import pl.coderslab.sports_bets_webapp.service.TransactionService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,6 +21,12 @@ public class CouponSettleServiceImpl implements CouponSettleService {
 
     @Autowired
     BetService betService;
+
+    @Autowired
+    TransactionService transactionService;
+
+    @Autowired
+    CouponService couponService;
 
     @Override
     public void updateStatusAndSettle(Coupon coupon) {
@@ -35,15 +43,16 @@ public class CouponSettleServiceImpl implements CouponSettleService {
             }
         }
 
-        if (coupon.getCouponStatus().equals(CouponStatusEnum.LOST)){
-
-            //TODO send message to user
+        if (coupon.getCouponStatus().equals(CouponStatusEnum.WAITING)){
+            return;
         }else if (couponsBets.size() == win_counter){
             coupon.setCouponStatus(CouponStatusEnum.PAID);
             payThePrize(coupon);
             //TODO send message to user
+        }else {
+            //TODO send message to user
         }
-
+        couponService.save(coupon);
     }
 
 
@@ -54,6 +63,8 @@ public class CouponSettleServiceImpl implements CouponSettleService {
 
             finalRate = coupon_bet.getApproved_bet_odds().multiply(finalRate);
         }
+
+        transactionService.couponPayOut(coupon.getUser(), coupon.getAmount().multiply(finalRate));
 
     }
 }
