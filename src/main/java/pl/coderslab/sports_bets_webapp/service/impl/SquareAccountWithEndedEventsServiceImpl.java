@@ -11,9 +11,6 @@ import java.util.List;
 public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWithEndedEventsService {
 
     @Autowired
-    EventService eventService;
-
-    @Autowired
     BetService betService;
 
     @Autowired
@@ -23,7 +20,7 @@ public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWit
     CouponSettleService couponSettleService;
 
     @Override
-    @Scheduled
+    @Scheduled(fixedRate = 2 * 60 * 1000, initialDelay = 5 * 60 * 1000)
     public void update_Waiting_Bets_Statuses() {
 
         List<Bet> waitingBets = betService.findAllWaitingWithEndedEvent();
@@ -33,7 +30,7 @@ public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWit
     }
 
     @Override
-    @Scheduled
+    @Scheduled(fixedRate = 5 * 60 * 1000, initialDelay = 5 * 60 * 1000)
     public void settle_coupons() {
 
         List<Coupon> waitingCoupons = couponService.findAllWaiting();

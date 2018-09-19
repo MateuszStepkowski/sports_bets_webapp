@@ -20,4 +20,6 @@ public interface BetService {
     void checkAndSetWinOrLost(Bet bet);
 
     List<Bet> findAllByCouponId(int couponID);
+
+    Bet save(Bet bet);
 }

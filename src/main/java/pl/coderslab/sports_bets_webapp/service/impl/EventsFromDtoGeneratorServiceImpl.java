@@ -33,6 +33,7 @@ public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGenerator
         event.setTeamB(teamService.findInLeagueByName(event.getLeague(), eventDto.getTeamB()));
         event.setTeamA_pts(eventDto.getTeamA_pts());
         event.setTeamB_pts(eventDto.getTeamB_pts());
+        event.setLive_duration_time(eventDto.getLive_duration_time());
         event.setEndDate(LocalDateTime.from(eventDto.getEndDate()));
 
         Event eventFromDb = eventService.findBy_StartDate_TeamA_TeamB_League(event.getStartDate(),

@@ -50,6 +50,11 @@ public class BetServiceImpl implements BetService {
         return betRepository.findAllBycouponID(couponID);
     }
 
+    @Override
+    public Bet save(Bet bet) {
+        return betRepository.saveAndFlush(bet);
+    }
+
 
     @Override
     public void checkAndSetWinOrLost(Bet bet) {

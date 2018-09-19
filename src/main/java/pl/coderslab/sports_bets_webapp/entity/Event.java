@@ -41,6 +41,8 @@ public class Event {
 
     private LocalDateTime endDate;
 
+    private int live_duration_time = 0;
+
 
     public Event() {
     }
@@ -52,6 +54,14 @@ public class Event {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getLive_duration_time() {
+        return live_duration_time;
+    }
+
+    public void setLive_duration_time(int live_duration_time) {
+        this.live_duration_time = live_duration_time;
     }
 
     public LocalDateTime getStartDate() {

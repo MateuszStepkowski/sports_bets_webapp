@@ -43,6 +43,8 @@ public class EventDto {
     @JsonProperty("teamB_pts")
     private int teamB_pts;
 
+    private int live_duration_time = 0;
+
     @JsonProperty("endDate")
     private LocalDateTime endDate;
 
@@ -52,6 +54,14 @@ public class EventDto {
 
     public LocalDateTime getStartDate() {
         return startDate;
+    }
+
+    public int getLive_duration_time() {
+        return live_duration_time;
+    }
+
+    public void setLive_duration_time(int live_duration_time) {
+        this.live_duration_time = live_duration_time;
     }
 
     public void setStartDate(LocalDateTime startDate) {
