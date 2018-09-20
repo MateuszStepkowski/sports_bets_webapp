@@ -41,6 +41,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.saveAndFlush(user);
         Wallet wallet = new Wallet(user);
-        walletRepository.saveAndFlush(wallet);
+        walletRepository.save(wallet);
     }
 }

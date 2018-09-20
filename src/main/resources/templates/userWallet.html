@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+       layout:decorator="mainLayout">
+
+
+
+<div layout:fragment="content">
+
+    <div>current balance: <span th:text="${balance}"/></div>
+    <br/>
+    <p th:text="${message}"/>
+    <br/>
+    <form action="/user/wallet/deposit" method="post">
+       <label>deposit:
+           <input type="text" name="depositAmount"/>
+       </label>
+        <input type="submit" value="make a deposit"/>
+    </form>
+    <form action="/user/wallet/deposit" method="post">
+        <label>withdraw:
+            <input type="text" name="withdrawAmount"/>
+        </label>
+        <input type="submit" value="make a withdraw"/>
+    </form>
+    <form action="/user/wallet/allTransactions" method="post">
+        <input type="submit" value="check transactions history"/>
+    </form>
+
+
+</div>
+
+</body>
+</html>

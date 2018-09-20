@@ -58,7 +58,7 @@
         }
 
         .sidenav {
-            font-size: 20px;
+            font-size: 18px;
             color: bisque;
             height: 100%;
             width: 160px;
@@ -108,31 +108,28 @@
     <ul>
         <li><a th:href="@{/home}" th:text="'HomePage'"></a></li>
 
-        <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="'Sign IN'"></a></li>
+        <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="'Sign In'"></a></li>
         <li sec:authorize="isAuthenticated()">
             <span style="color: greenyellow" sec:authentication="name"></span>
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout"/>
+                <input type="submit" value="Sign In"/>
             </form>
         </li>
 
-        <li>BASKETBALL Bets</li>
-        <li><a th:href="@{/basketball/all}" th:text="'display All'"></a></li>
+        <li>BASKETBALL</li>
+        <li><a th:href="@{/bets/basketball/}" th:text="'display events'"></a></li>
 
-        <li>FOOTBALL Bets</li>
-        <li><a th:href="@{/football/all}" th:text="'display All'"></a></li>
+        <li>FOOTBALL</li>
+        <li><a th:href="@{/bets/football/}" th:text="'display events'"></a></li>
 
-        <li>All In Play Bets</li>
-        <li><a th:href="@{/live/all}" th:text="'display All'"></a></li>
+        <li>In Live Bets</li>
+        <li><a th:href="@{/bets/live/}" th:text="'show live events'"></a></li>
 
-        <li>All Before Game Bets</li>
-        <li><a th:href="@{/beforeGame/all}" th:text="'display All'"></a></li>
+        <li>Your Wallet</li>
+        <li><a th:href="@{/user/wallet/}" th:text="'display'"></a></li>
 
         <li>Your Coupons</li>
-        <li><a th:href="@{/user/coupons}" th:text="'display All'"></a></li>
-
-        <li>Your Account</li>
-        <li><a th:href="@{/user/account}" th:text="'display'"></a></li>
+        <li><a th:href="@{/user/coupons/}" th:text="'display All'"></a></li>
 
     </ul>
 </div>

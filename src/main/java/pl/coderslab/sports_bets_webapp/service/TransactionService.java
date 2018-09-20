@@ -9,9 +9,9 @@ public interface TransactionService {
 
     void couponPayOut(User user, BigDecimal payout);
 
-    void userDeposit(User user, BigDecimal deposit);
+    String userDeposit(User user, String deposit);
 
-    void userWithDraw(User user, BigDecimal withdraw);
+    String userWithDraw(User user, String withdraw);
 
     void couponCharge(User user, BigDecimal charge);
 

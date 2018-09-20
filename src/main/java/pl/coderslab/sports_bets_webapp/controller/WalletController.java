@@ -1,15 +1,19 @@
 package pl.coderslab.sports_bets_webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 import pl.coderslab.sports_bets_webapp.entity.Wallet;
+import pl.coderslab.sports_bets_webapp.model.CurrentUser;
+import pl.coderslab.sports_bets_webapp.service.DecimalToStringService;
 import pl.coderslab.sports_bets_webapp.service.TransactionService;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 @Controller
 @RequestMapping("/user/wallet")
@@ -19,30 +23,33 @@ public class WalletController {
     TransactionService transactionService;
 
 
-//    @PostMapping("/withdraw")
-//    public String withdraw(@RequestParam BigDecimal amount, Model model) {
-//        Wallet wallet; //TO DO currentUser Get Wallet
-//
-//        if (wallet.getBalance().compareTo(amount) < 0) {
-//            model.addAttribute("walletError", "Not Enough Founds");
-//            return "/user/wallet";
-//        }
-//
-//        transactionService.userWithDraw(currentUser, amount);
-//
-//        return "redirect:/user/balance";
-//    }
-//
-//    @PostMapping("/deposit")
-//    public String deposit(@RequestParam BigDecimal amount, Model model) {
-//
-//        if (amount.compareTo(BigDecimal.valueOf(0)) <= 0) {
-//            transactionService.userDeposit(currentUser, amount);
-//
-//            return "redirect:/user/balance";
-//        }
-//
-//        model.addAttribute("walletError", "Not Enough Founds");
-//        return "user/wallet";
-//    }
+    @GetMapping("/")
+    public String displayWallet(Model model, @AuthenticationPrincipal CurrentUser currentUser){
+
+        Wallet wallet = currentUser.getUser().getWallet();
+        model.addAttribute("balance", wallet.getBalance().setScale(2, RoundingMode.HALF_DOWN));
+
+        return "userWallet";
+    }
+
+
+    @PostMapping("/withdraw")
+    public String withdraw(@RequestParam String withdrawAmount, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+
+        String message = transactionService.userWithDraw(currentUser.getUser(), withdrawAmount);
+
+        model.addAttribute("message", message);
+
+        return "userWallet";
+    }
+
+    @PostMapping("/deposit")
+    public String deposit(@RequestParam String withdrawAmount, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+
+        String message = transactionService.userDeposit(currentUser.getUser(), withdrawAmount);
+
+        model.addAttribute("message", message);
+
+        return "userWallet";
+        }
 }

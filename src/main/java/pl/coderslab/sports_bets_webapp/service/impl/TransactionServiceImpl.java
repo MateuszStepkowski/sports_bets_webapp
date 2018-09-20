@@ -7,6 +7,7 @@ import pl.coderslab.sports_bets_webapp.entity.User;
 import pl.coderslab.sports_bets_webapp.entity.Wallet;
 import pl.coderslab.sports_bets_webapp.entity.enums.TransactionTypeEnum;
 import pl.coderslab.sports_bets_webapp.repository.TransactionRepository;
+import pl.coderslab.sports_bets_webapp.service.DecimalToStringService;
 import pl.coderslab.sports_bets_webapp.service.TransactionService;
 import pl.coderslab.sports_bets_webapp.service.WalletService;
 
@@ -21,6 +22,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    DecimalToStringService decimalToStringService;
 
 
     @Override
@@ -41,37 +45,60 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void userDeposit(User user, BigDecimal deposit) {
+    public String userDeposit(User user, String deposit) {
+
+        BigDecimal amount = decimalToStringService.parse(deposit);
+
+        if (amount == null){
+            return "Invalid format, try again";
+
+        }
+        if (amount.compareTo(BigDecimal.valueOf(0))< 0) {
+            return "Invalid amount, try again";
+        }
 
         Transaction transaction = new Transaction();
         Wallet wallet = user.getWallet();
 
-        transaction.setAmount(deposit);
+        transaction.setAmount(amount);
         transaction.setWallet(wallet);
         transaction.setTransactionType(TransactionTypeEnum.DEPOSIT);
         transaction.setTime(new Timestamp(System.currentTimeMillis()));
 
-        wallet.setBalance(wallet.getBalance().add(deposit));
+        wallet.setBalance(wallet.getBalance().add(amount));
         save(transaction);
         walletService.save(wallet);
+
+        return "success";
 
     }
 
     @Override
-    public void userWithDraw(User user, BigDecimal withdraw) {
+    public String userWithDraw(User user, String withdraw) {
+
+        BigDecimal amount = decimalToStringService.parse(withdraw);
+
+        if (amount == null){
+            return "Invalid format, try again";
+
+        }
+        if (user.getWallet().getBalance().compareTo(amount) < 0) {
+            return "Not Enough Founds";
+        }
 
         Transaction transaction = new Transaction();
         Wallet wallet = user.getWallet();
 
-        transaction.setAmount(withdraw);
+        transaction.setAmount(amount);
         transaction.setWallet(wallet);
         transaction.setTransactionType(TransactionTypeEnum.WITHDRAW);
         transaction.setTime(new Timestamp(System.currentTimeMillis()));
 
-        wallet.setBalance(wallet.getBalance().subtract(withdraw));
+        wallet.setBalance(wallet.getBalance().subtract(amount));
         save(transaction);
         walletService.save(wallet);
 
+        return "success";
     }
 
     @Override
