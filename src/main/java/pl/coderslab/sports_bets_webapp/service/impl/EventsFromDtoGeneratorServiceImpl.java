@@ -35,20 +35,20 @@ public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGenerator
         event.setTeamA_pts(eventDto.getTeamA_pts());
         event.setTeamB_pts(eventDto.getTeamB_pts());
         event.setLive_duration_time(eventDto.getLive_duration_time());
-        event.setEndDate(eventDto.getEndDate());
+        if (eventDto.getStatusEnum().equals("YES")) event.setEndDate(new Timestamp(System.currentTimeMillis()));
 
-        Event eventFromDb = eventService.findBy_StartDate_TeamA_TeamB_League(event.getStartDate(),
-                event.getTeamA(), event.getTeamB(), event.getLeague());
+        if (event.getTeamA() != null && event.getTeamB() != null) {
+            Event eventFromDb = eventService.findBy_StartDate_TeamA_TeamB_League(event.getStartDate(),
+                    event.getTeamA(), event.getTeamB(), event.getLeague());
 
-        /**protecting for creating new Event
-         *  which is already In Play*/
-        if (eventFromDb != null) {
+            /**protecting for creating new Event
+             *  which is already In Play*/
+            if (eventFromDb != null) {
 
-            event.setId(eventFromDb.getId());
-            return event;
+                event.setId(eventFromDb.getId());
+                return event;
+            }
         }
-
-
         return null;
     }
 
@@ -61,14 +61,16 @@ public class EventsFromDtoGeneratorServiceImpl implements EventsFromDtoGenerator
         event.setTeamA(teamService.findInLeagueByName(event.getLeague(), eventDto.getTeamA()));
         event.setTeamB(teamService.findInLeagueByName(event.getLeague(), eventDto.getTeamB()));
 
-        Event eventFromDb = eventService.
-                findUnfinishedBy_StartDate_TeamA_TeamB_League(
-                        event.getStartDate(), event.getTeamA(), event.getTeamB(), event.getLeague());
+        if (event.getTeamA() != null && event.getTeamB() != null) {
+            Event eventFromDb = eventService.
+                    findUnfinishedBy_StartDate_TeamA_TeamB_League(
+                            event.getStartDate(), event.getTeamA(), event.getTeamB(), event.getLeague());
 
-        /**protecting for participating one team
-         *  in two events in the same time   */
-        if (eventFromDb == null) {
-            return eventService.save(event);
+            /**protecting for participating one team
+             *  in two events in the same time   */
+            if (eventFromDb == null) {
+                return eventService.save(event);
+            }
         }
         return null;
     }

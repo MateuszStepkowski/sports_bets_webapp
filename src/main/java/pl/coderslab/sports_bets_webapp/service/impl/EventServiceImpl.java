@@ -32,17 +32,22 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event save(Event event) {
 
-        return eventRepository.saveAndFlush(event);
+        return eventRepository.save(event);
     }
 
     @Override
     public Event findBy_StartDate_TeamA_TeamB_League(Timestamp startDate, Team teamA, Team teamB, League league) {
-        return eventRepository.findFirstByStartDateAndTeamAAndTeamBAnAndLeague(startDate,teamA,teamB, league);
+        return eventRepository.findFirstByStartDateAndTeamAAndTeamBAndLeague(startDate,teamA,teamB, league);
     }
 
     @Override
     public Event findUnfinishedBy_StartDate_TeamA_TeamB_League(Timestamp startDate, Team teamA, Team teamB, League league) {
         return eventRepository.findFirstByStartDateAndTeamAAndTeamBAndLeagueAndEndDateIsNull(startDate, teamA, teamB, league);
+    }
+
+    @Override
+    public List<Event> findFirst8NearestNotStarted() {
+        return eventRepository.findFirst8ByStartDateAfterOrderByStartDateDesc(new Timestamp(System.currentTimeMillis()));
     }
 
 }

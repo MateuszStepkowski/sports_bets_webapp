@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Title</title>
+
+    <style>
+        h1, h2 {
+
+            color: brown;
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .sidenav {
+            font-size: 20px;
+            color: bisque;
+            height: 100%;
+            width: 160px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+        .main {
+            margin-left: 160px; /* Same as the width of the sidenav */
+            font-size: 20px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1 style="margin-left: 160px;">CRM SYSTEM</h1>
+
+<div class="sidenav">
+    <ul>
+        <li><a th:href="@{/home}" th:text="'HomePage'"></a></li>
+
+        <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="'Sign IN'"></a></li>
+        <li sec:authorize="isAuthenticated()">
+            <span style="color: greenyellow" sec:authentication="name"></span>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </li>
+
+        <li>BASKETBALL Bets</li>
+        <li><a th:href="@{/basketball/all}" th:text="'display All'"></a></li>
+
+        <li>FOOTBALL Bets</li>
+        <li><a th:href="@{/football/all}" th:text="'display All'"></a></li>
+
+        <li>All In Play Bets</li>
+        <li><a th:href="@{/live/all}" th:text="'display All'"></a></li>
+
+        <li>All Before Game Bets</li>
+        <li><a th:href="@{/beforeGame/all}" th:text="'display All'"></a></li>
+
+        <li>Your Coupons</li>
+        <li><a th:href="@{/user/coupons}" th:text="'display All'"></a></li>
+
+        <li>Your Account</li>
+        <li><a th:href="@{/user/account}" th:text="'display'"></a></li>
+
+    </ul>
+</div>
+
+<!--Coupon view-->
+
+<div>
+    Coupon
+    <table>
+        <tbody th:if="${session.coupon != null}">
+        <tr th:each="bet : ${session.coupon.coupon_bet.bet}">
+
+            <p th:text="${bet.event.teamA.name + ' vs ' + bet.event.teamB.name}"/>
+            <p th:text="${bet.actual_odds}"></p>
+            <button type="button" th:attr="betID=${bet.id}">
+                <span>X</span>
+            </button>
+
+        </tr>
+        <hr>
+        <p>total rate : <span th:text="${session.coupon.totalRate}"></span></p>
+
+        <p>
+        <form action="/coupon/place" method="post">
+            <input type="text" name="stake"/>
+            <input type="submit" value="place bet"/>
+        </form>
+        </p>
+        </tbody>
+    </table>
+</div>
+
+<div class="main" layout:fragment="content">Content...</div>
+
+
+</body>
+</html>

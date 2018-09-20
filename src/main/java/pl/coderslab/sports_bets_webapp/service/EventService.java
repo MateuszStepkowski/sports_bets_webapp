@@ -21,4 +21,5 @@ public interface EventService {
 
     Event findUnfinishedBy_StartDate_TeamA_TeamB_League(Timestamp startDate, Team teamA, Team teamB, League league);
 
+    List<Event> findFirst8NearestNotStarted();
 }

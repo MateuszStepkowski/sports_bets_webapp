@@ -5,6 +5,7 @@ import pl.coderslab.sports_bets_webapp.entity.Event;
 import pl.coderslab.sports_bets_webapp.service.OddsGeneratorService;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Service
 public class OddsGeneratorServiceImpl implements OddsGeneratorService {
@@ -21,11 +22,10 @@ public class OddsGeneratorServiceImpl implements OddsGeneratorService {
     @Override
     public BigDecimal[] updateOddsForEvent(Event event) {
 
-        BigDecimal[] updatedOdds = generateOddsForEvent(event);
 
         //when time is running out, timeFactor is increasing
         BigDecimal timeFactor = BigDecimal.valueOf(event.getLeague().getSport().getGame_duration())
-                .divide((BigDecimal.valueOf(event.getLeague().getSport().getGame_duration()-event.getLive_duration_time())));
+                .divide((BigDecimal.valueOf(event.getLeague().getSport().getGame_duration()-event.getLive_duration_time())), 2, RoundingMode.HALF_UP);
 
 
 
@@ -45,35 +45,34 @@ public class OddsGeneratorServiceImpl implements OddsGeneratorService {
         BigDecimal drawPower;
 
         if (teamApower.compareTo(teamBpower) > 0) {
-            drawPower = (teamApower.subtract(teamBpower)).divide(BigDecimal.valueOf(2)).add(teamBpower);
+            drawPower = (teamApower.subtract(teamBpower)).divide(BigDecimal.valueOf(2), 2, RoundingMode.HALF_UP).add(teamBpower);
         } else {
-            drawPower = (teamBpower.subtract(teamApower)).divide(BigDecimal.valueOf(2)).add(teamApower);
+            drawPower = (teamBpower.subtract(teamApower)).divide(BigDecimal.valueOf(2), 2, RoundingMode.HALF_UP).add(teamApower);
         }
 
 
         if (event.getTeamA_pts() > event.getTeamB_pts()){
-            teamApower = teamBpower.add(teamApower.multiply((finalFactor.divide(BigDecimal.valueOf(10)))));
+            teamApower = teamApower.add(teamApower.multiply((finalFactor.divide(BigDecimal.valueOf(10), 2, RoundingMode.HALF_UP))));
         } else if (event.getTeamA_pts() < event.getTeamB_pts()) {
-            teamBpower = teamBpower.add(teamBpower.multiply((finalFactor.divide(BigDecimal.valueOf(10)))));
+            teamBpower = teamBpower.add(teamBpower.multiply((finalFactor.divide(BigDecimal.valueOf(10), 2, RoundingMode.HALF_UP))));
         }else {
-            drawPower = drawPower.add(drawPower.multiply((finalFactor.divide(BigDecimal.valueOf(10)))));
+            drawPower = drawPower.add(drawPower.multiply((finalFactor.divide(BigDecimal.valueOf(10), 2, RoundingMode.HALF_UP))));
         }
-        
+
 
 
 
         BigDecimal wholePower = teamApower.add(teamBpower).add(drawPower);
 
-        //
 
         BigDecimal teamAodds = (wholePower)
-                .divide(teamApower.multiply(BigDecimal.valueOf(1).subtract(margine)));
+                .divide(teamApower.multiply(BigDecimal.valueOf(1).add(margine)), 2, RoundingMode.HALF_DOWN);
 
         BigDecimal teamBodds = (wholePower)
-                .divide(teamBpower.multiply(BigDecimal.valueOf(1).subtract(margine)));
+                .divide(teamBpower.multiply(BigDecimal.valueOf(1).add(margine)), 2, RoundingMode.HALF_DOWN);
 
         BigDecimal drawOdds = (wholePower)
-                .divide(drawPower.multiply(BigDecimal.valueOf(1).subtract(margine)));
+                .divide(drawPower.multiply(BigDecimal.valueOf(1).add(margine)), 2, RoundingMode.HALF_DOWN);
 
         BigDecimal[] result = {teamAodds,drawOdds,teamBodds};
 
@@ -98,9 +97,9 @@ public class OddsGeneratorServiceImpl implements OddsGeneratorService {
         BigDecimal drawPower;
 
         if (teamApower.compareTo(teamBpower) > 0) {
-            drawPower = (teamApower.subtract(teamBpower)).divide(BigDecimal.valueOf(2)).add(teamBpower);
+            drawPower = (teamApower.subtract(teamBpower)).divide(BigDecimal.valueOf(2), 2, RoundingMode.HALF_UP).add(teamBpower);
         } else {
-            drawPower = (teamBpower.subtract(teamApower)).divide(BigDecimal.valueOf(2)).add(teamApower);
+            drawPower = (teamBpower.subtract(teamApower)).divide(BigDecimal.valueOf(2), 2, RoundingMode.HALF_UP).add(teamApower);
         }
 
         BigDecimal wholePower = teamApower.add(teamBpower).add(drawPower);
@@ -108,13 +107,13 @@ public class OddsGeneratorServiceImpl implements OddsGeneratorService {
         //
 
         BigDecimal teamAodds = (wholePower)
-                .divide(teamApower.multiply(BigDecimal.valueOf(1).subtract(margine)));
+                .divide(teamApower.multiply(BigDecimal.valueOf(1).add(margine)), 2, RoundingMode.HALF_DOWN);
 
         BigDecimal teamBodds = (wholePower)
-                .divide(teamBpower.multiply(BigDecimal.valueOf(1).subtract(margine)));
+                .divide(teamBpower.multiply(BigDecimal.valueOf(1).add(margine)), 2, RoundingMode.HALF_DOWN);
 
         BigDecimal drawOdds = (wholePower)
-                .divide(drawPower.multiply(BigDecimal.valueOf(1).subtract(margine)));
+                .divide(drawPower.multiply(BigDecimal.valueOf(1).add(margine)), 2, RoundingMode.HALF_DOWN);
 
         BigDecimal[] result = {teamAodds,drawOdds,teamBodds};
 

@@ -30,19 +30,24 @@ public class LiveEventsServiceImpl implements LiveEventsService {
     @Async
     public void createInPlayBets_OR_Updated_Odds() {
 
-        List<Event> liveEvents = eventService.findAllInPlay();
+        while (true) {
+            List<Event> liveEvents = eventService.findAllInPlay();
 
-        for (Event event : liveEvents) {
+            for (Event event : liveEvents) {
 
-            if (betService.findFirstInPlayByEvent(event) == null){
-                betsForEventService.makeBeforeGameBetsWaiting(event);
-                betsForEventService.generate_inPlay_Win_Lose_Draw(event);
+                if (betService.findFirstInPlayByEvent(event) == null) {
+                    betsForEventService.makeBeforeGameBetsWaiting(event);
+                    betsForEventService.generate_inPlay_Win_Lose_Draw(event);
+                } else {
+                    betsForEventService.updateInPlayBetsOddsForEvent(event);
+                }
+
             }
-            else {
-                betsForEventService.updateInPlayBetsOddsForEvent(event);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
         }
-
     }
 }

@@ -31,12 +31,15 @@ public class Bet {
     private BigDecimal actual_odds;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private BetStatusEnum betStatus;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private BetTypeEnum betType;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private BetContentEnum betContent;
 
     public int getId() {

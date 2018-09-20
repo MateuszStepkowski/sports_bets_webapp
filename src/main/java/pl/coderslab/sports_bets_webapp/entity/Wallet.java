@@ -24,6 +24,11 @@ public class Wallet {
     @OneToMany(mappedBy = "wallet")
     private List<Transaction> transactions = new ArrayList<>();
 
+
+    public Wallet(@NotNull User user) {
+        this.user = user;
+    }
+
     public int getId() {
         return id;
     }

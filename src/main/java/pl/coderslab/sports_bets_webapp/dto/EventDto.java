@@ -1,6 +1,7 @@
 package pl.coderslab.sports_bets_webapp.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,11 +14,16 @@ public class EventDto {
 
     @NotNull
     @JsonProperty("startDate")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     private Timestamp startDate;
 
     @NotBlank
     @JsonProperty("sport")
     private String sport;
+
+    @NotBlank
+    @JsonProperty("dataType")
+    private String dataType;
 
     @NotBlank
     @JsonProperty("country")
@@ -45,8 +51,8 @@ public class EventDto {
 
     private int live_duration_time = 0;
 
-    @JsonProperty("endDate")
-    private Timestamp endDate;
+    @JsonProperty("statusEnum")
+    private String statusEnum;
 
 
     public EventDto() {
@@ -62,6 +68,14 @@ public class EventDto {
 
     public void setLive_duration_time(int live_duration_time) {
         this.live_duration_time = live_duration_time;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public void setStartDate(Timestamp startDate) {
@@ -124,12 +138,12 @@ public class EventDto {
         this.teamB_pts = teamB_pts;
     }
 
-    public Timestamp getEndDate() {
-        return endDate;
+    public String getStatusEnum() {
+        return statusEnum;
     }
 
-    public void setEndDate(Timestamp endDate) {
-        this.endDate = endDate;
+    public void setStatusEnum(String statusEnum) {
+        this.statusEnum = statusEnum;
     }
 
     @Override
@@ -137,13 +151,15 @@ public class EventDto {
         return "EventDto{" +
                 "startDate=" + startDate +
                 ", sport='" + sport + '\'' +
+                ", dataType='" + dataType + '\'' +
                 ", country='" + country + '\'' +
                 ", league='" + league + '\'' +
                 ", teamA='" + teamA + '\'' +
                 ", teamB='" + teamB + '\'' +
                 ", teamA_pts=" + teamA_pts +
                 ", teamB_pts=" + teamB_pts +
-                ", endDate=" + endDate +
+                ", live_duration_time=" + live_duration_time +
+                ", statusEnum='" + statusEnum + '\'' +
                 '}';
     }
 }

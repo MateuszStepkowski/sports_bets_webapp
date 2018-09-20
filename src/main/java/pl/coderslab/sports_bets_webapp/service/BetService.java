@@ -1,6 +1,7 @@
 package pl.coderslab.sports_bets_webapp.service;
 
 import pl.coderslab.sports_bets_webapp.entity.Bet;
+import pl.coderslab.sports_bets_webapp.entity.Coupon;
 import pl.coderslab.sports_bets_webapp.entity.Event;
 
 import java.util.List;
@@ -19,7 +20,9 @@ public interface BetService {
 
     void checkAndSetWinOrLost(Bet bet);
 
-    List<Bet> findAllByCouponId(int couponID);
+    List<Bet> findAllByCoupon(Coupon coupon);
 
     Bet save(Bet bet);
+
+
 }

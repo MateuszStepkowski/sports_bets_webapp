@@ -29,6 +29,7 @@ public class Coupon {
 
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private CouponStatusEnum couponStatus;
 
 

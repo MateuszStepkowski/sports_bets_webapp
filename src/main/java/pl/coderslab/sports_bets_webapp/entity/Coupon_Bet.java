@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity(name = "coupon_bet")
+@Entity(name = "coupons_bets")
 public class Coupon_Bet {
 
     @Id
@@ -13,11 +13,11 @@ public class Coupon_Bet {
     private int id;
 
     @NotNull
-    @OneToMany
+    @ManyToOne
     private Coupon coupon;
 
     @NotNull
-    @OneToMany
+    @ManyToOne
     private Bet bet;
 
     @NotNull

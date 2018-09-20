@@ -31,7 +31,7 @@ public class CouponSettleServiceImpl implements CouponSettleService {
     @Override
     public void updateStatusAndSettle(Coupon coupon) {
 
-        List<Bet>  couponsBets = betService.findAllByCouponId(coupon.getId());
+        List<Bet>  couponsBets = betService.findAllByCoupon(coupon);
         int win_counter = 0;
         for (Bet bet : couponsBets){
             if (bet.getBetStatus().equals(BetStatusEnum.LOST)){

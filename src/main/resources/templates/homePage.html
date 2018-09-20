@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+       layout:decorator="mainLayout">
+
+
+
+<div layout:fragment="content">
+    <h1>Upcoming</h1>
+    <table>
+        <thead>
+        <th>sport</th>
+        <th>start date</th>
+        <th>Home</th>
+        <th>Home Win</th>
+        <th>Draw</th>
+        <th>Away Win</th>
+        <th>Away</th>
+        </thead>
+        <tr th:each="event: ${upcomingEvents}">
+            <td th:text="${#temporals.format(event.startDate, 'yyyy-dd-MM HH:mm')}"></td>
+            <td th:text="${event.teamA.name}"></td>
+            <td>
+                <form th:action="@{/bet/place/{id}/(id=${event.bets.get(0).getId()})}" method="post">
+                    <input type="submit" th:value="${event.bets.get(0).getActual_odds()}"/>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/bet/place/{id}/(id=${event.bets.get(1).getId()})}" method="post">
+                    <input type="submit" th:value="${event.bets.get(1).getActual_odds()}"/>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/bet/place/{id}/(id=${event.bets.get(2).getId()})}" method="post">
+                    <input type="submit" th:value="$${event.bets.get(2).getActual_odds()}"/>
+                </form>
+            </td>
+            <td th:text="${event.teamB.name}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

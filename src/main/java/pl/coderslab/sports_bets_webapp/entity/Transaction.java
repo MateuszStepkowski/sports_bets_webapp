@@ -22,6 +22,7 @@ public class Transaction {
     private Wallet wallet;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private TransactionTypeEnum transactionType;
 
     @NotNull

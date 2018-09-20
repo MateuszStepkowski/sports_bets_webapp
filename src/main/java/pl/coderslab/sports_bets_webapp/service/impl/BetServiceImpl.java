@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import pl.coderslab.sports_bets_webapp.entity.Bet;
+import pl.coderslab.sports_bets_webapp.entity.Coupon;
 import pl.coderslab.sports_bets_webapp.entity.Event;
 import pl.coderslab.sports_bets_webapp.entity.enums.BetContentEnum;
 import pl.coderslab.sports_bets_webapp.entity.enums.BetStatusEnum;
@@ -46,8 +47,8 @@ public class BetServiceImpl implements BetService {
 
 
     @Override
-    public List<Bet> findAllByCouponId(int couponID) {
-        return betRepository.findAllBycouponID(couponID);
+    public List<Bet> findAllByCoupon(Coupon coupon) {
+        return betRepository.findAllBycoupon(coupon.getId());
     }
 
     @Override

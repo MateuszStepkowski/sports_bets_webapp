@@ -114,11 +114,11 @@ public class BetsForEventServiceImpl implements BetsForEventService {
 
         for (Bet bet : bets) {
             if (bet.getBetContent().equals(BetContentEnum.TeamA)) {
-                bet.setActual_odds(updatedOdds[0]);
+                bet.setActual_odds(updatedOdds[0].setScale(2, RoundingMode.DOWN));
             } else if (bet.getBetContent().equals(BetContentEnum.DRAW)) {
-                bet.setActual_odds(updatedOdds[1]);
+                bet.setActual_odds(updatedOdds[1].setScale(2, RoundingMode.DOWN));
             } else if (bet.getBetContent().equals(BetContentEnum.TeamB)) {
-                bet.setActual_odds(updatedOdds[2]);
+                bet.setActual_odds(updatedOdds[2].setScale(2, RoundingMode.DOWN));
             }
         }
         betService.saveAll(bets);
