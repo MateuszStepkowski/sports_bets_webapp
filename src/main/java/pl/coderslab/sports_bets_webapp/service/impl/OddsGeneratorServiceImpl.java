@@ -37,6 +37,11 @@ public class OddsGeneratorServiceImpl implements OddsGeneratorService {
                 .divide(BigDecimal.valueOf(event.getLeague().getSport().getPoints_value()));
 
 
+        //when its over time dont want to minus value of odds
+        if (timeFactor.compareTo(BigDecimal.valueOf(0)) < 0) {
+            timeFactor = BigDecimal.valueOf(90);
+        }
+
         BigDecimal finalFactor = timeFactor.multiply(scoreDifferenceFactor);
 
 

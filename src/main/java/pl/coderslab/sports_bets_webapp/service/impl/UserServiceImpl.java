@@ -8,6 +8,7 @@ import pl.coderslab.sports_bets_webapp.entity.User;
 import pl.coderslab.sports_bets_webapp.entity.Wallet;
 import pl.coderslab.sports_bets_webapp.repository.RoleRepository;
 import pl.coderslab.sports_bets_webapp.repository.UserRepository;
+import pl.coderslab.sports_bets_webapp.repository.WalletRepository;
 import pl.coderslab.sports_bets_webapp.service.UserService;
 
 import java.util.Arrays;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    WalletRepository walletRepository;
+
     @Override
     public User findByLogin(String login) {
         return userRepository.findFirstByLogin(login);
@@ -35,7 +39,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Role userRole = roleRepository.findFirstByName("ROLE_USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        user.setWallet(new Wallet(user));
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
+        Wallet wallet = new Wallet(user);
+        walletRepository.saveAndFlush(wallet);
     }
 }

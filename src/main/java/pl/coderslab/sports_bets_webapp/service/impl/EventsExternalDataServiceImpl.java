@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.sports_bets_webapp.dto.EventDto;
 import pl.coderslab.sports_bets_webapp.entity.Event;
 import pl.coderslab.sports_bets_webapp.jms.JmsSubscriber;
+import pl.coderslab.sports_bets_webapp.service.BetService;
 import pl.coderslab.sports_bets_webapp.service.BetsForEventService;
 import pl.coderslab.sports_bets_webapp.service.EventService;
 import pl.coderslab.sports_bets_webapp.service.EventsExternalDataService;
@@ -35,6 +36,9 @@ public class EventsExternalDataServiceImpl implements EventsExternalDataService 
     @Autowired
     EventService eventService;
 
+    @Autowired
+    BetService betService;
+
     static int counter = 0;
 
     private final String eventsDataQueue = "events_data.t";
@@ -58,8 +62,14 @@ public class EventsExternalDataServiceImpl implements EventsExternalDataService 
 
             Event event = eventsFromDtoGenerator.generateEventToUpdate(eventDto);
             if (event != null) {
-                if (event.getEndDate() != null) {
+                if (betService.findFirstInPlayByEvent(event) == null) {
+                    betsForEventService.makeBeforeGameBetsWaiting(event);
+                    betsForEventService.generate_inPlay_Win_Lose_Draw(event);
+
+                } else if (event.getEndDate() != null) {
                     betsForEventService.makeInPlayBetsWaiting(event);
+                }else {
+                    betsForEventService.updateInPlayBetsOddsForEvent(event);
                 }
                 eventService.save(event);
             }

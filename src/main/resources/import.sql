@@ -1,4 +1,4 @@
-INSERT INTO sport VALUES (null, 90 , 'football', 1);
+INSERT INTO sport VALUES (null, 110 , 'football', 1);
 INSERT INTO sport VALUES (null, 40 ,'basketball', 10);
 
 INSERT INTO countries VALUES (null , 'England')
@@ -46,7 +46,7 @@ INSERT INTO team VALUES (null , 76,'Fuenlabrada', 64 ,2);
 
 INSERT INTO league VALUES (null , 'English Premier League', 1 , 1);
 INSERT INTO league VALUES (null , 'Primera Division', 2 , 1);
-INSERT INTO league VALUES (null , 'Primera Division', 2 , 2);
+INSERT INTO league VALUES (null , 'ACB BasketBall', 2 , 2);
 
 INSERT INTO league_teams VALUES (1 , 1);
 INSERT INTO league_teams VALUES (1 , 2);

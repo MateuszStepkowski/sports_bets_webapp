@@ -18,7 +18,7 @@
         <th>Away</th>
         </thead>
         <tr th:each="event: ${upcomingEvents}">
-            <td th:text="${#temporals.format(event.startDate, 'yyyy-dd-MM HH:mm')}"></td>
+            <td th:text="${event.startDate}"></td>
             <td th:text="${event.teamA.name}"></td>
             <td>
                 <form th:action="@{/bet/place/{id}/(id=${event.bets.get(0).getId()})}" method="post">

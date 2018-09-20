@@ -143,7 +143,6 @@ public class BetsForEventServiceImpl implements BetsForEventService {
             for (Bet bet : bets) {
                 bet.setBetStatus(BetStatusEnum.WAITING);
             }
+            betService.saveAll(bets);
         }
-
-
     }

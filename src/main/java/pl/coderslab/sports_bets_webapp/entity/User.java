@@ -7,10 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "users")
 public class User {
@@ -23,20 +20,13 @@ public class User {
     @NotBlank
     private String login;
 
-    @NotBlank
-    private String forename;
-
-    @NotBlank
-    private String surname;
-
-    @NotNull
-    private Date birthDate;
-
     @NotEmpty
     private String password;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     private Wallet wallet;
+
+    private boolean enabled = true;
 
     @OneToMany(mappedBy = "user")
     private List<Coupon> coupons = new ArrayList<>();
@@ -44,7 +34,7 @@ public class User {
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
 
 
@@ -62,30 +52,6 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getForename() {
-        return forename;
-    }
-
-    public void setForename(String forename) {
-        this.forename = forename;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
     }
 
     public String getPassword() {
@@ -106,6 +72,14 @@ public class User {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setRoles(Set<Role> roles) {
@@ -140,9 +114,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", forename='" + forename + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthDate=" + birthDate +
                 '}';
     }
 }

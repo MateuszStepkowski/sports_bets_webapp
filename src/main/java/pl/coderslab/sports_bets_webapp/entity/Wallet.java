@@ -15,11 +15,11 @@ public class Wallet {
     private int id;
 
     @NotNull
-    @OneToOne(mappedBy = "wallet")
+    @OneToOne
     private User user;
 
     @NotNull
-    private BigDecimal balance;
+    private BigDecimal balance=BigDecimal.valueOf(0);
 
     @OneToMany(mappedBy = "wallet")
     private List<Transaction> transactions = new ArrayList<>();
