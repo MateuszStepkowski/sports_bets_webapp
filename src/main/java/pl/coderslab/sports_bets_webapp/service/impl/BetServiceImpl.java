@@ -106,6 +106,7 @@ public class BetServiceImpl implements BetService {
                 bet.setBetStatus(BetStatusEnum.LOST);
             }
         }
+     save(bet);
     }
 
     public Bet findByID(int ID){

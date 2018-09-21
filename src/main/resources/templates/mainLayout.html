@@ -171,6 +171,9 @@
                 </form>
             </tr>
             <tr>
+                <td>total rate: <span th:text="${session.currentCoupon.getTotalOdds()}"/> </td>
+            </tr>
+            <tr>
             <form action="/coupon/place" method="post">
                 <input type="text" name="stake"/>
                 <input type="submit" value="place this coupon"/>

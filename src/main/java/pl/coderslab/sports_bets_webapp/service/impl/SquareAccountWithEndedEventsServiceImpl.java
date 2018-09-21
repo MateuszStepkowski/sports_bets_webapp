@@ -22,7 +22,6 @@ public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWit
     CouponSettleService couponSettleService;
 
     @Override
-    @Scheduled(fixedRate = 15 * 1000, initialDelay = 30 * 1000)
     public void update_Waiting_Bets_Statuses() {
 
         List<Bet> waitingBets = betService.findAllWaitingWithEndedEvent();
@@ -32,8 +31,10 @@ public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWit
     }
 
     @Override
-    @Scheduled(fixedRate = 20 * 1000, initialDelay = 30 * 1000)
+    @Scheduled(fixedRate = 6 * 60 * 1000, initialDelay = 4 * 60 * 1000)
     public void settle_coupons() {
+
+        update_Waiting_Bets_Statuses();
 
         List<Coupon> waitingCoupons = couponService.findAllWaiting();
 

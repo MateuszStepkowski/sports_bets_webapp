@@ -5,6 +5,7 @@ import pl.coderslab.sports_bets_webapp.entity.User;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +49,6 @@ public class CurrentCoupon {
         for (Bet bet : getBets()){
             total = total.multiply(bet.getActual_odds());
         }
-
-        this.totalOdds = total;
-
+        this.totalOdds = total.setScale(2, RoundingMode.FLOOR);
     }
 }
