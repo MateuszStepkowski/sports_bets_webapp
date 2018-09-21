@@ -66,66 +66,6 @@
 
         </tbody>
     </table>
-    <h2>Live:</h2>
-
-    <table>
-        <thead>
-        <tr>
-            <th>
-                start date
-            </th>
-            <th>
-                home
-            </th>
-            <th>
-                1
-            </th>
-            <th>
-                X
-            </th>
-            <th>
-                2
-            </th>
-            <th>
-                away
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="event: ${inPlay}">
-
-            <td th:text="${event.event.startDate}"/>
-            <td th:text="${event.event.teamA.name}"/>
-            <td>
-                <form action="/coupon/addBet" method="post">
-
-                    <input type="hidden" name="bet", th:value="${event.bets[0]}"/>
-
-                    <input type="submit" th:value="${event.bets[0].actual_odds}"/>
-                </form>
-            </td>
-            <td>
-                <form action="/coupon/addBet" method="post">
-
-                    <input type="hidden" name="bet", th:value="${event.bets[1]}"/>
-
-                    <input type="submit" th:value="${event.bets[1].actual_odds}"/>
-                </form>
-            </td>
-            <td>
-                <form action="/coupon/addBet" method="post">
-
-                    <input type="hidden" name="bet", th:value="${event.bets[2]}"/>
-
-                    <input type="submit" th:value="${event.bets[2].actual_odds}"/>
-                </form>
-            </td>
-            <td th:text="${event.event.teamB.name}"/>
-
-        </tr>
-
-        </tbody>
-    </table>
 </div>
 
 </body>

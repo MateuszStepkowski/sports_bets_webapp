@@ -83,6 +83,20 @@
             color: #f1f1f1;
         }
 
+        #container {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        #sidebar {
+            float: right;
+            width: 140px;
+        }
+
+        #content {
+            overflow: hidden;
+        }
+
         .main {
             margin-left: 160px; /* Same as the width of the sidenav */
             font-size: 20px; /* Increased text to enable scrolling */
@@ -108,10 +122,11 @@
     <ul>
         <li><a th:href="@{/home}" th:text="'HomePage'"></a></li>
 
-        <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="'Sign In'"></a></li>
-        <li sec:authorize="isAuthenticated()">
+        <li><a th:href="@{/registration}" th:text="'Register'"></a></li>
+
+        <li sec:authorize="${isAuthenticated()}">
             <span style="color: greenyellow" sec:authentication="name"></span>
-            <form th:action="@{/logout}" method="post">
+            <form th:action="@{/login}" method="get">
                 <input type="submit" value="Sign In"/>
             </form>
         </li>
@@ -121,9 +136,6 @@
 
         <li>FOOTBALL</li>
         <li><a th:href="@{/bets/football/}" th:text="'display events'"></a></li>
-
-        <li>In Live Bets</li>
-        <li><a th:href="@{/bets/live/}" th:text="'show live events'"></a></li>
 
         <li>Your Wallet</li>
         <li><a th:href="@{/user/wallet/}" th:text="'display'"></a></li>
@@ -135,19 +147,20 @@
 </div>
 
 <!--Coupon view-->
-
-<div>
-    Coupon
-    <table th:if="${currentCoupon != null}">
-        <!--/*@thymesVar id="currentCoupon" type="pl.coderslab.sports_bets_webapp.model.CurrentCoupon"*/-->
-        <tr th:each="bet: ${currentCoupon.bets}">
-            <td th:text="${bet.event.teamA.name} vs ${bet.event.teamB.name}"/>
-            <td th:text="choice ${bet.betContent.toString()}  ,odds ${bet.actual_odds}">
-        </tr>
-    </table>
+<div id="container">
+    <div id="sidebar">
+        Coupon
+        <table th:if="${currentCoupon != null}">
+            <!--/*@thymesVar id="currentCoupon" type="pl.coderslab.sports_bets_webapp.model.CurrentCoupon"*/-->
+            <tr th:each="bet: ${currentCoupon.bets}">
+                <td th:text="${bet.event.teamA.name} vs ${bet.event.teamB.name}"/>
+                <td th:text="choice ${bet.betContent.toString()}  ,odds ${bet.actual_odds}">
+            </tr>
+        </table>
+    </div>
 </div>
 
-<div class="main" layout:fragment="content">Content...</div>
+<div class="main" id="content" layout:fragment="content">Content...</div>
 
 
 </body>

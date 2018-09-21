@@ -40,16 +40,20 @@ public class WalletController {
 
         String message = transactionService.userWithDraw(currentUser.getUser(), withdrawAmount);
 
+        Wallet wallet = currentUser.getUser().getWallet();
+        model.addAttribute("balance", wallet.getBalance().setScale(2, RoundingMode.HALF_DOWN));
         model.addAttribute("message", message);
 
         return "userWallet";
     }
 
     @PostMapping("/deposit")
-    public String deposit(@RequestParam String withdrawAmount, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+    public String deposit(@RequestParam String depositAmount, Model model, @AuthenticationPrincipal CurrentUser currentUser) {
 
-        String message = transactionService.userDeposit(currentUser.getUser(), withdrawAmount);
+        String message = transactionService.userDeposit(currentUser.getUser(), depositAmount);
 
+        Wallet wallet = currentUser.getUser().getWallet();
+        model.addAttribute("balance", wallet.getBalance().setScale(2, RoundingMode.HALF_DOWN));
         model.addAttribute("message", message);
 
         return "userWallet";
