@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<table>
+    <!--/*@thymesVar id="currentCoupon" type="pl.coderslab.sports_bets_webapp.model.CurrentCoupon"*/-->
+    <tr th:each="bet: ${currentCoupon.getBets()}">
+        <td th:text="${bet.event.teamA.name} vs ${bet.event.teamB.name}"/>
+        <td th:text="choice ${bet.getBetContent().toString()}  ,odds ${bet.actual_odds}">
+    </tr>
+</table>

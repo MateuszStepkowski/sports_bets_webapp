@@ -12,6 +12,7 @@ import pl.coderslab.sports_bets_webapp.repository.Coupon_BetRepository;
 import pl.coderslab.sports_bets_webapp.service.BetService;
 import pl.coderslab.sports_bets_webapp.service.CouponService;
 import pl.coderslab.sports_bets_webapp.service.CurrentCouponToCouponService;
+import pl.coderslab.sports_bets_webapp.service.TransactionService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,10 +30,16 @@ public class CurrentCouponToCouponServiceImpl implements CurrentCouponToCouponSe
     @Autowired
     Coupon_BetRepository coupon_betRepository;
 
+    @Autowired
+    TransactionService transactionService;
+
 
     @Override
     public String convertAndSave(CurrentCoupon currentCoupon, BigDecimal stake) {
 
+        if (currentCoupon.getUser().getWallet().getBalance().compareTo(stake)<0){
+            return "Not enough Founds, please recharge your wallet";
+        }
         List<Coupon_Bet> coupon_betList = new ArrayList<>();
         for (Bet bet : currentCoupon.getBets()){
             Bet betFromDB = betRepository.findFirstById(bet.getId());
@@ -43,6 +50,8 @@ public class CurrentCouponToCouponServiceImpl implements CurrentCouponToCouponSe
             }
         }
 
+
+
         Coupon coupon = new Coupon(currentCoupon.getUser());
         coupon.setCouponStatus(CouponStatusEnum.WAITING);
         coupon.setAmount(stake);
@@ -51,6 +60,7 @@ public class CurrentCouponToCouponServiceImpl implements CurrentCouponToCouponSe
             coupon_bet.setCoupon(coupon);
             coupon_betRepository.save(coupon_bet);
         }
+        transactionService.couponCharge(coupon.getUser(),stake);
         return "success";
     }
 }
