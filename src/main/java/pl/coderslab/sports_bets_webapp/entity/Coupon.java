@@ -24,7 +24,7 @@ public class Coupon {
     @NotNull
     private BigDecimal amount;
 
-    @OneToMany(mappedBy = "coupon", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "coupon")
     private List<Coupon_Bet> coupon_bet = new ArrayList<>();
 
 

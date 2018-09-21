@@ -13,6 +13,7 @@ import pl.coderslab.sports_bets_webapp.service.WalletService;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -121,5 +122,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Transaction save(Transaction transaction) {
         return transactionRepository.saveAndFlush(transaction);
+    }
+
+    @Override
+    public List<Transaction> findAllByWallet(Wallet wallet) {
+        return transactionRepository.findAllByWallet(wallet);
     }
 }

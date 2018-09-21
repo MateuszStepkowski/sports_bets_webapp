@@ -56,8 +56,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> findFirst8NearestNotStarted() {
-        return eventRepository.findFirst8ByStartDateAfterOrderByStartDateDesc(new Timestamp(System.currentTimeMillis()));
+    public List<Event> findFirst5NearestNotStarted() {
+        return eventRepository.findTop5ByStartDateAfterOrderByStartDateAsc(new Timestamp(System.currentTimeMillis()));
+    }
+
+    @Override
+    public List<Event> findFirst5InPlay() {
+        return eventRepository.findTop5ByStartDateBeforeAndEndDateIsNull(new Timestamp(System.currentTimeMillis()));
     }
 
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+       layout:decorator="mainLayout">
+
+
+
+<div layout:fragment="content">
+
+    <table>
+        <thead>
+        <tr>
+           <th>type</th>
+           <th>amount</th>
+           <th>time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction: ${transactionsHistory}">
+            <td th:text="${transaction.transactionType}"/>
+            <td th:text="${transaction.amount}"/>
+            <td th:text="${transaction.time}"/>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+</body>
+</html>

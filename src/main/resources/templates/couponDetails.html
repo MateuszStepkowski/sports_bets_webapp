@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="mainLayout">
+
+<div layout:fragment="content">
+
+    <table>
+        <tr>
+            <th>
+                amount
+            </th>
+            <td th:text="${coupon.amount}"/>
+        </tr>
+        <tr>
+            <th>
+                status
+            </th>
+            <td th:text="${coupon.couponStatus}"/>
+        </tr>
+        <tr th:each="bet: ${coupon.coupon_bet}">
+            <td th:text="${bet.bet.event.teamA} vs ${bet.bet.event.teamB}"/>
+            <td th:text="choice ${bet.bet.betContent} odds ${bet.getApproved_bet_odds()}"/>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

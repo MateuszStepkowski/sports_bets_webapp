@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
+import pl.coderslab.sports_bets_webapp.entity.Transaction;
 import pl.coderslab.sports_bets_webapp.entity.Wallet;
 import pl.coderslab.sports_bets_webapp.model.CurrentUser;
 import pl.coderslab.sports_bets_webapp.service.DecimalToStringService;
@@ -14,6 +15,7 @@ import pl.coderslab.sports_bets_webapp.service.TransactionService;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user/wallet")
@@ -52,4 +54,13 @@ public class WalletController {
 
         return "userWallet";
         }
+
+    @PostMapping("/allTransactions")
+    public String transactionsHistory(@AuthenticationPrincipal CurrentUser currentUser, Model model){
+
+        List<Transaction> userTransactions = transactionService.findAllByWallet(currentUser.getUser().getWallet());
+        model.addAttribute("transactionsHistory", userTransactions);
+
+        return "transactionsHistory";
+    }
 }

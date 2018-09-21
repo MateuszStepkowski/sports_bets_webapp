@@ -20,10 +20,11 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     Event findFirstByStartDateAndTeamAAndTeamBAndLeagueAndEndDateIsNull(Timestamp startDate, Team teamA, Team teamB, League league);
 
-    List<Event> findFirst8ByStartDateAfterOrderByStartDateDesc(Timestamp startDate);
+    List<Event> findTop5ByStartDateAfterOrderByStartDateAsc(Timestamp startDate);
 
     List<Event> findAllByLeagueSportNameAndStartDateBeforeAndEndDateIsNull(String sport, Timestamp startDate);
 
     List<Event> findAllByStartDateAfterAndLeagueSportName(Timestamp startDate, String sport);
 
+    List<Event> findTop5ByStartDateBeforeAndEndDateIsNull(Timestamp startDate);
 }

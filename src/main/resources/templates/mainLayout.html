@@ -138,27 +138,12 @@
 
 <div>
     Coupon
-    <table>
-        <tbody th:if="${session.coupon != null}">
-        <tr th:each="bet : ${session.coupon.coupon_bet.bet}">
-
-            <p th:text="${bet.event.teamA.name + ' vs ' + bet.event.teamB.name}"/>
-            <p th:text="${bet.actual_odds}"></p>
-            <button type="button" th:attr="betID=${bet.id}">
-                <span>X</span>
-            </button>
-
+    <table th:if="${currentCoupon != null}">
+        <!--/*@thymesVar id="currentCoupon" type="pl.coderslab.sports_bets_webapp.model.CurrentCoupon"*/-->
+        <tr th:each="bet: ${currentCoupon.bets}">
+            <td th:text="${bet.event.teamA.name} vs ${bet.event.teamB.name}"/>
+            <td th:text="choice ${bet.betContent.toString()}  ,odds ${bet.actual_odds}">
         </tr>
-        <hr>
-        <p>total rate : <span th:text="${session.coupon.totalRate}"></span></p>
-
-        <p>
-        <form action="/coupon/place" method="post">
-            <input type="text" name="stake"/>
-            <input type="submit" value="place bet"/>
-        </form>
-        </p>
-        </tbody>
     </table>
 </div>
 

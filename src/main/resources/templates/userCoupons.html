@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="mainLayout">
+
+<div layout:fragment="content">
+
+    <table th:each="coupon: ${userCoupons}">
+
+
+        <tr>
+            <th>
+                amount
+            </th>
+            <td th:text="${coupon.amount}"/>
+        </tr>
+        <tr>
+            <th>
+                status
+            </th>
+            <td th:text="${coupon.couponStatus}"/>
+        </tr>
+        <form action="/user/coupons/details" method="post">
+
+                <input type="hidden" name="couponID"/>
+
+            <input type="submit" value="details"/>
+        </form>
+
+    </table>
+
+</div>
+
+</body>
+</html>

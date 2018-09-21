@@ -14,6 +14,10 @@
                 start date
             </th>
             <th>
+                game time<br/>
+                minutes
+            </th>
+            <th>
                 home
             </th>
             <th>
@@ -34,12 +38,33 @@
         <tr th:each="event: ${inPlay}">
 
             <td th:text="${event.event.startDate}"/>
+            <td th:text="${event.event.getLive_duration_time()}"/>
             <td th:text="${event.event.teamA.name}"/>
-            <td th:text="${event.bets[0].actual_odds.toString()}"/>
-            <td th:text="${event.bets[1].actual_odds.toString()}"/>
-            <td th:text="${event.bets[2].actual_odds.toString()}"/>
-            <td th:text="${event.event.teamA.name}"/>
+            <td>
+                <form action="/coupon/addBet" method="post">
 
+                    <input type="hidden" name="bet", th:value="${event.bets[0]}"/>
+
+                    <input type="submit" th:value="${event.bets[0].actual_odds}"/>
+                </form>
+            </td>
+            <td>
+                <form action="/coupon/addBet" method="post">
+
+                    <input type="hidden" name="bet", th:value="${event.bets[1]}"/>
+
+                    <input type="submit" th:value="${event.bets[1].actual_odds}"/>
+                </form>
+            </td>
+            <td>
+                <form action="/coupon/addBet" method="post">
+
+                    <input type="hidden" name="bet", th:value="${event.bets[2]}"/>
+
+                    <input type="submit" th:value="${event.bets[2].actual_odds}"/>
+                </form>
+            </td>
+            <td th:text="${event.event.teamB.name}"/>
         </tr>
 
         </tbody>
