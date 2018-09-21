@@ -97,6 +97,11 @@
             overflow: hidden;
         }
 
+        #message {
+            color: darkorange;
+            font-size: 18px;
+        }
+
         .main {
             margin-left: 160px; /* Same as the width of the sidenav */
             font-size: 20px; /* Increased text to enable scrolling */
@@ -117,6 +122,8 @@
 <body>
 
 <h1 style="margin-left: 160px;">No more Bets ? ... soo More BETS</h1>
+
+<p id="message" th:text="${message}"/>
 
 <div class="sidenav">
     <ul>
@@ -150,11 +157,21 @@
 <div id="container">
     <div id="sidebar">
         Coupon
-        <table th:if="${currentCoupon != null}">
+        <table th:if="${session.currentCoupon != null}">
             <!--/*@thymesVar id="currentCoupon" type="pl.coderslab.sports_bets_webapp.model.CurrentCoupon"*/-->
-            <tr th:each="bet: ${currentCoupon.bets}">
-                <td th:text="${bet.event.teamA.name} vs ${bet.event.teamB.name}"/>
-                <td th:text="choice ${bet.betContent.toString()}  ,odds ${bet.actual_odds}">
+            <tr th:each="bet: ${session.currentCoupon.bets}">
+                <td> <span th:text="${bet.event.teamA.name}"/> vs <span th:text="${bet.event.teamB.name}"/><td/>
+                <td> choice: <span th:text="${bet.betContent.toString()}"/>  ,odds <span th:text="${bet.actual_odds}"/><td/>
+                <form action="/user/coupon/deleteBet" method="post">
+                    <input type="hidden" name="betID" th:value="${bet.id}"/>
+                    <input type="submit" value="X"/>
+                </form>
+            </tr>
+            <tr>
+            <form action="/coupon/place" method="post">
+                <input type="text" name="stake"/>
+                <input type="submit" value="place this coupon"/>
+            </form>
             </tr>
         </table>
     </div>

@@ -27,5 +27,6 @@ public interface BetService {
 
     Bet[] getEventBetsInArrayByType(Event event,BetTypeEnum betType);
 
+    Bet findByID(int ID);
 
 }

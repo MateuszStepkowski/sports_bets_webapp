@@ -108,5 +108,10 @@ public class BetServiceImpl implements BetService {
         }
     }
 
+    public Bet findByID(int ID){
+        Bet bet = betRepository.findFirstById(ID);
+        return bet;
+    }
+
 
 }
