@@ -22,4 +22,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     List<Event> findFirst8ByStartDateAfterOrderByStartDateDesc(Timestamp startDate);
 
+    List<Event> findAllByLeagueSportNameAndStartDateBeforeAndEndDateIsNull(String sport, Timestamp startDate);
+
+    List<Event> findAllByStartDateAfterAndLeagueSportName(Timestamp startDate, String sport);
+
 }

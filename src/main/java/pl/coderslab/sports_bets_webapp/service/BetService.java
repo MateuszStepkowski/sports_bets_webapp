@@ -3,6 +3,7 @@ package pl.coderslab.sports_bets_webapp.service;
 import pl.coderslab.sports_bets_webapp.entity.Bet;
 import pl.coderslab.sports_bets_webapp.entity.Coupon;
 import pl.coderslab.sports_bets_webapp.entity.Event;
+import pl.coderslab.sports_bets_webapp.entity.enums.BetTypeEnum;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public interface BetService {
     List<Bet> findAllByCoupon(Coupon coupon);
 
     Bet save(Bet bet);
+
+    Bet[] getEventBetsInArrayByType(Event event,BetTypeEnum betType);
 
 
 }

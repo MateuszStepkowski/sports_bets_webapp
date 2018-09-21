@@ -24,6 +24,16 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<Event> findAllInPlay(String sport) {
+        return eventRepository.findAllByLeagueSportNameAndStartDateBeforeAndEndDateIsNull(sport, new Timestamp(System.currentTimeMillis()));
+    }
+
+    @Override
+    public List<Event> findAllBeforeGame(String sport) {
+        return eventRepository.findAllByStartDateAfterAndLeagueSportName(new Timestamp(System.currentTimeMillis()), sport);
+    }
+
+    @Override
     public void saveAll(List<Event> events) {
 
         eventRepository.saveAll(events);

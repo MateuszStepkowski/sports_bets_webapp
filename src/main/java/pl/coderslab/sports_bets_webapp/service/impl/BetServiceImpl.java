@@ -58,6 +58,24 @@ public class BetServiceImpl implements BetService {
 
 
     @Override
+    public Bet[] getEventBetsInArrayByType(Event event, BetTypeEnum betType) {
+        Bet[] resultBets = new Bet[3];
+        for (Bet bet: event.getBets()){
+            if (bet.getBetType().equals(betType)){
+                if ( bet.getBetContent().equals(BetContentEnum.TeamA)){
+                    resultBets[0] = bet;
+                }else if (bet.getBetContent().equals(BetContentEnum.DRAW)){
+                    resultBets[1] = bet;
+                }else {
+                    resultBets[2] = bet;
+                }
+            }
+        }
+        return resultBets;
+    }
+
+
+    @Override
     public void checkAndSetWinOrLost(Bet bet) {
 
         if (bet.getBetContent().equals(BetContentEnum.TeamA)){

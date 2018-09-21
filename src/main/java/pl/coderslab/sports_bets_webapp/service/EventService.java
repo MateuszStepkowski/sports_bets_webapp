@@ -13,6 +13,10 @@ public interface EventService {
 
     List<Event> findAllInPlay();
 
+    List<Event> findAllInPlay(String sport);
+
+    List<Event> findAllBeforeGame(String sport);
+
     void saveAll(List<Event> events);
 
     Event save(Event event);

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="mainLayout">
+
+
+<div layout:fragment="content">
+
+    <h2>In Play Games</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                start date
+            </th>
+            <th>
+                home
+            </th>
+            <th>
+                1
+            </th>
+            <th>
+                X
+            </th>
+            <th>
+                2
+            </th>
+            <th>
+                away
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="event: ${inPlay}">
+
+            <td th:text="${event.event.startDate}"/>
+            <td th:text="${event.event.teamA.name}"/>
+            <td th:text="${event.bets[0].actual_odds.toString()}"/>
+            <td th:text="${event.bets[1].actual_odds.toString()}"/>
+            <td th:text="${event.bets[2].actual_odds.toString()}"/>
+            <td th:text="${event.event.teamA.name}"/>
+
+        </tr>
+
+        </tbody>
+    </table>
+
+    <h2>Before Game Events</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>
+                start date
+            </th>
+            <th>
+                home
+            </th>
+            <th>
+                1
+            </th>
+            <th>
+                X
+            </th>
+            <th>
+                2
+            </th>
+            <th>
+                away
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="event: ${beforeGame}">
+
+            <td th:text="${event.event.startDate}"/>
+            <td th:text="${event.event.teamA.name}"/>
+            <td>
+                <form action="/coupon/addBet" method="post">
+
+                    <input type="hidden" name="betID", th:value="${event.bets[0].id}"/>
+
+                    <input type="submit" th:value="${event.bets[0].actual_odds}"/>
+                </form>
+            </td>
+            <td>
+                <form action="/coupon/addBet" method="post">
+
+                    <input type="hidden" name="betID", th:value="${event.bets[1].id}"/>
+
+                    <input type="submit" th:value="${event.bets[1].actual_odds}"/>
+                </form>
+            </td>
+            <td>
+                <form action="/coupon/addBet" method="post">
+
+                    <input type="hidden" name="betID", th:value="${event.bets[2].id}"/>
+
+                    <input type="submit" th:value="${event.bets[2].actual_odds}"/>
+                </form>
+            </td>
+            <td th:text="${event.event.teamB.name}"/>
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

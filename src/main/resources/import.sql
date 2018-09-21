@@ -1,3 +1,5 @@
+INSERT INTO roles VALUES (null , 'ROLE_USER');
+
 INSERT INTO sport VALUES (null, 110 , 'football', 1);
 INSERT INTO sport VALUES (null, 40 ,'basketball', 10);
 
