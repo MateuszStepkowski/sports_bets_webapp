@@ -2,12 +2,14 @@ package pl.coderslab.sports_bets_webapp.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import pl.coderslab.sports_bets_webapp.entity.Bet;
 import pl.coderslab.sports_bets_webapp.entity.Coupon;
 import pl.coderslab.sports_bets_webapp.service.*;
 
 import java.util.List;
 
+@Service
 public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWithEndedEventsService {
 
     @Autowired
@@ -20,7 +22,7 @@ public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWit
     CouponSettleService couponSettleService;
 
     @Override
-    @Scheduled(fixedRate = 2 * 60 * 1000, initialDelay = 5 * 60 * 1000)
+    @Scheduled(fixedRate = 15 * 1000, initialDelay = 30 * 1000)
     public void update_Waiting_Bets_Statuses() {
 
         List<Bet> waitingBets = betService.findAllWaitingWithEndedEvent();
@@ -30,7 +32,7 @@ public class SquareAccountWithEndedEventsServiceImpl implements SquareAccountWit
     }
 
     @Override
-    @Scheduled(fixedRate = 5 * 60 * 1000, initialDelay = 5 * 60 * 1000)
+    @Scheduled(fixedRate = 20 * 1000, initialDelay = 30 * 1000)
     public void settle_coupons() {
 
         List<Coupon> waitingCoupons = couponService.findAllWaiting();

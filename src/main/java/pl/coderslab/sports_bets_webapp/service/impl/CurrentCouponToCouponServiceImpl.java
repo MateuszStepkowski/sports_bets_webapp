@@ -43,7 +43,7 @@ public class CurrentCouponToCouponServiceImpl implements CurrentCouponToCouponSe
         List<Coupon_Bet> coupon_betList = new ArrayList<>();
         for (Bet bet : currentCoupon.getBets()){
             Bet betFromDB = betRepository.findFirstById(bet.getId());
-            if (bet.getActual_odds() != betFromDB.getActual_odds()){
+            if (bet.getActual_odds().compareTo(betFromDB.getActual_odds()) !=0 ){
                 return "odds already changed, coupon invalidated, please create new Coupon";
             }else {
                 coupon_betList.add(new Coupon_Bet(betFromDB, betFromDB.getActual_odds()));

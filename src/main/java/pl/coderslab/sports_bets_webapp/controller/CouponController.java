@@ -46,7 +46,7 @@ public class CouponController {
         String message = currentCouponToCouponService.convertAndSave(currentCoupon, stake);
         model.addAttribute("message", message);
         session.setAttribute("currentCoupon", new CurrentCoupon(currentUser.getUser()));
-        return "redirect:/home";
+        return "homePage";
     }
 
     @PostMapping("/addBet")

@@ -18,6 +18,9 @@
                 home
             </th>
             <th>
+                pts
+            </th>
+            <th>
                 1
             </th>
             <th>
@@ -25,6 +28,9 @@
             </th>
             <th>
                 2
+            </th>
+            <th>
+                pts
             </th>
             <th>
                 away
@@ -36,6 +42,7 @@
 
             <td th:text="${event.event.startDate}"/>
             <td th:text="${event.event.teamA.name}"/>
+            <td th:text="${event.event.teamA_pts}"/>
             <td>
                 <form action="/coupon/addBet" method="post">
 
@@ -60,6 +67,7 @@
                     <input type="submit" th:value="${event.bets[2].actual_odds}"/>
                 </form>
             </td>
+            <td th:text="${event.event.teamB_pts}"/>
             <td th:text="${event.event.teamB.name}"/>
 
         </tr>
