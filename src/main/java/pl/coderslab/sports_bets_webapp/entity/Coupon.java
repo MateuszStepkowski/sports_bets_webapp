@@ -24,7 +24,7 @@ public class Coupon {
     @NotNull
     private BigDecimal amount;
 
-    @OneToMany(mappedBy = "coupon")
+    @OneToMany(mappedBy = "coupon", cascade = CascadeType.PERSIST)
     private List<Coupon_Bet> coupon_bet = new ArrayList<>();
 
 
@@ -32,6 +32,9 @@ public class Coupon {
     @Enumerated(EnumType.STRING)
     private CouponStatusEnum couponStatus;
 
+    public Coupon(@NotNull User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;

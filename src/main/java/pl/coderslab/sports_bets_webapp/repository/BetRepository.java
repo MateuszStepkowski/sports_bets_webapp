@@ -25,4 +25,6 @@ public interface BetRepository extends JpaRepository<Bet, Integer> {
 
     @Query(value="SELECT b.* FROM bets b JOIN coupons_bets cb on cb.bet_id = b.id Join coupons c on c.id=cb_coupon_id WHERE c.id = :id", nativeQuery = true)
     List<Bet> findAllBycoupon(@Param("id") int id );
+
+    Bet findFirstById(int id);
 }

@@ -23,6 +23,11 @@ public class Coupon_Bet {
     @NotNull
     private BigDecimal approved_bet_odds;
 
+    public Coupon_Bet(@NotNull Bet bet, @NotNull BigDecimal approved_bet_odds) {
+        this.bet = bet;
+        this.approved_bet_odds = approved_bet_odds;
+    }
+
     public int getId() {
         return id;
     }
